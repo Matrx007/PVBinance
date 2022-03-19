@@ -2,6 +2,12 @@ package com.ttg.pvbinance;
 
 import com.binance.connector.client.impl.SpotClientImpl;
 import com.binance.connector.client.impl.spot.Market;
+import com.binance.connector.client.impl.spot.Wallet;
+import com.binance.connector.client.utils.JSONParser;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * This class will contain high-level functions which will call the Binance API.
@@ -24,13 +30,23 @@ public class BinanceAPI {
         return Long.parseLong(spotClient.createMarket().time().replace("{\"serverTime\":", "").replace("}", ""));
     }
 
-    public HashMap<String, String> getCurrencies() {
-        // https://binance-docs.github.io/apidocs/spot/en/#all-coins-39-information-user_data
+    public ArrayList<CryptoPriceInfo> getCurrencies() {
+        /* // https://binance-docs.github.io/apidocs/spot/en/#all-coins-39-information-user_data
         LinkedHashMap<String, Object> prop = new LinkedHashMap<>();
         prop.put("timestamp", this.getTime());
         Wallet wallet = this.spotClient.createWallet();
         String data = wallet.coinInfo(prop);
+        System.out.println(data);
         return new HashMap<String, String>();
+        */
+        String data = this.spotClient.createMarket().tickerSymbol(new LinkedHashMap<>());
+        ArrayList<CryptoPriceInfo> priceInfos = new ArrayList<>();
+        for (String s : data.substring(1, data.length() - 2).split("}(,)*")) {
+            s = s + "}";
+            priceInfos.add(new CryptoPriceInfo(JSONParser.getJSONStringValue(s, "symbol"),
+                    Float.parseFloat(JSONParser.getJSONStringValue(s, "price"))));
+        }
+        return priceInfos;
     }
 
     public void getCurrencyInOther(String first, String second) {

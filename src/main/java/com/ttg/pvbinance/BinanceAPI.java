@@ -2,6 +2,7 @@ package com.ttg.pvbinance;
 
 import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
+import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.SymbolInfo;
 
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
         return client.get24HrPriceStatistics(symbol).getAskPrice();
     }
 
+    public List<Asset> getAssets() {
+        return client.getAllAssets();
+    }
 
 
     public static BinanceAPI getInstance() {

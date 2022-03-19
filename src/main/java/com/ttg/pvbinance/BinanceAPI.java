@@ -4,6 +4,8 @@ import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.SymbolInfo;
+import com.binance.api.client.domain.market.OrderBook;
+import com.binance.api.client.domain.market.OrderBookEntry;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -47,11 +49,16 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
     }
 
     public String getPrice(String symbol) {
-        return client.get24HrPriceStatistics(symbol).getAskPrice();
+        return client.get24HrPriceStatistics(symbol).getLastPrice();
     }
 
     public List<Asset> getAssets() {
         return client.getAllAssets();
+    }
+
+    public List<OrderBookEntry> order(String symbol, int quantity) {
+        OrderBook ob = client.getOrderBook(symbol, quantity);
+        return ob.getAsks();
     }
 
 
@@ -61,7 +68,7 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
 
     public boolean isUserLoggedIn() {
         return true;
-    };
+    }
 
     public static class OwnedCryptoPriceInfo {
 

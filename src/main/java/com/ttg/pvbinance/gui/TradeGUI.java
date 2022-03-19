@@ -44,6 +44,9 @@ public class TradeGUI {
 
         JButton buyButton = new JButton("Buy");
         JButton sellButton = new JButton("Sell");
+
+        buyButton.addActionListener(e -> BinanceAPI.getInstance().order(crypto, Integer.parseInt(countField.getText())));
+
         actionsPanel.add(buyButton);
         actionsPanel.add(sellButton);
         panel.add(actionsPanel);

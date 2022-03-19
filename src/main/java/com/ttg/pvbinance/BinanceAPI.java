@@ -22,4 +22,8 @@ public class BinanceAPI {
     public static BinanceAPI getInstance() {
         return BinanceAPI.instance;
     }
+
+    public boolean isUserLoggedIn() {
+        return true;
+    };
 }

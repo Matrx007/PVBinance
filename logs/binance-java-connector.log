@@ -1,0 +1,6 @@
+2022-03-19 11:24:49.260[1647681889260] | INFO  | main       | c.b.c.client.utils.RequestHandler    - GET testnet.binance.vision/api/api/v3/time
+2022-03-19 11:25:34.784[1647681934784] | INFO  | main       | c.b.c.client.utils.RequestHandler    - GET https://testnet.binance.vision/api/api/v3/time
+2022-03-19 11:25:49.681[1647681949681] | INFO  | main       | c.b.c.client.utils.RequestHandler    - GET https://testnet.binance.vision/api/v3/time
+2022-03-19 11:36:39.520[1647682599520] | INFO  | main       | c.b.c.client.utils.RequestHandler    - GET https://testnet.binance.vision/api/v3/time
+2022-03-19 11:56:32.658[1647683792658] | INFO  | main       | c.b.c.client.utils.RequestHandler    - GET https://testnet.binance.vision/api/v3/time
+2022-03-19 11:56:34.674[1647683794674] | INFO  | main       | c.b.c.client.utils.RequestHandler    - GET https://testnet.binance.vision/api/v3/ticker/price

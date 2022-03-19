@@ -19,12 +19,11 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
 
     public BinanceAPI() {
         BinanceAPI.instance = this;
-        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance("API-KEY", "SECRET");
+        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PrivateConf.API_KEY, PrivateConf.SECRET_KEY);
         BinanceApiRestClient client = factory.newRestClient();
         this.client = client;
         System.out.println(this.getTime());
         this.getCurrencies();
-        this.getCurrencyInOther("BTCBUSD", "ETHBUSD");
     }
 
     public long getTime() {
@@ -35,8 +34,8 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
         return client.getExchangeInfo().getSymbols();
     }
 
-    public void getCurrencyInOther(String first, String second) {
-        
+    public String getPrice(String symbol) {
+        return client.get24HrPriceStatistics(symbol).getAskPrice();
     }
 
 

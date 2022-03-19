@@ -47,7 +47,7 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
 
     public List<OrderBookEntry> order(String symbol, int quantity) {
         OrderBook ob = client.getOrderBook(symbol, quantity);
-        List<OrderBookEntry> asks = ob.getAsks();
+        return ob.getAsks();
     }
 
 

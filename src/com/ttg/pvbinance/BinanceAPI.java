@@ -14,7 +14,6 @@ public class BinanceAPI {
     public BinanceAPI() {
         BinanceAPI.instance = this;
         this.spotClient = new SpotClientImpl(PrivateConf.API_KEY, PrivateConf.SECRET_KEY, PrivateConf.baseUrl);
-        System.out.println(this.spotClient.createMarket().time());
     }
 
 

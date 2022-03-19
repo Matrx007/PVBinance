@@ -1,32 +1,32 @@
 package com.ttg.pvbinance;
 
-import com.binance.connector.client.impl.SpotClientImpl;
-import com.binance.connector.client.impl.spot.Market;
-import com.binance.connector.client.impl.spot.Wallet;
-import com.binance.connector.client.utils.JSONParser;
+import com.binance.api.client.BinanceApiClientFactory;
+import com.binance.api.client.BinanceApiRestClient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
  * This class will contain high-level functions which will call the Binance API.
  */
 
-public class BinanceAPI {
+public class BinanceAPI { // https://github.com/binance-exchange/binance-java-api
 
-    private SpotClientImpl spotClient;
+    private BinanceApiRestClient client;
     private static BinanceAPI instance;
 
     public BinanceAPI() {
         BinanceAPI.instance = this;
-        this.spotClient = new SpotClientImpl(PrivateConf.API_KEY, PrivateConf.SECRET_KEY, PrivateConf.baseUrl);
+        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance("API-KEY", "SECRET");
+        BinanceApiRestClient client = factory.newRestClient();
+        this.client = client;
         System.out.println(this.getTime());
         this.getCurrencies();
         this.getCurrencyInOther("BTCBUSD", "ETHBUSD");
     }
 
     public long getTime() {
+        client.ge
         return Long.parseLong(spotClient.createMarket().time().replace("{\"serverTime\":", "").replace("}", ""));
     }
 

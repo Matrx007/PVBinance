@@ -1,6 +1,7 @@
 package com.ttg.pvbinance;
 
 import com.binance.connector.client.impl.SpotClientImpl;
+import com.binance.connector.client.impl.spot.Market;
 
 /**
  * This class will contain high-level functions which will call the Binance API.
@@ -14,6 +15,7 @@ public class BinanceAPI {
     public BinanceAPI() {
         BinanceAPI.instance = this;
         this.spotClient = new SpotClientImpl(PrivateConf.API_KEY, PrivateConf.SECRET_KEY, PrivateConf.baseUrl);
+        Market market = spotClient.createMarket();
     }
 
 

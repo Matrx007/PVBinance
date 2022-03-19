@@ -8,6 +8,7 @@ import com.binance.api.client.domain.general.SymbolInfo;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  * This class will contain high-level functions which will call the Binance API.
@@ -20,11 +21,21 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
 
     public BinanceAPI() {
         BinanceAPI.instance = this;
+        logIn(PrivateConf.API_KEY, PrivateConf.SECRET_KEY, "");
+        System.out.println(this.getTime());
+        this.getCurrencies();
+    }
+
+    public boolean logIn(String apiKey, String secretKey, String baseURL) {
+        PrivateConf.API_KEY = apiKey;
+        PrivateConf.SECRET_KEY = secretKey;
+        PrivateConf.baseUrl = baseURL;
+
         BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PrivateConf.API_KEY, PrivateConf.SECRET_KEY);
         BinanceApiRestClient client = factory.newRestClient();
         this.client = client;
-        System.out.println(this.getTime());
-        this.getCurrencies();
+
+        return true;
     }
 
     public long getTime() {
@@ -51,6 +62,10 @@ public class BinanceAPI { // https://github.com/binance-exchange/binance-java-ap
     public boolean isUserLoggedIn() {
         return true;
     };
+
+    public static class OwnedCryptoPriceInfo {
+
+    }
 
     /**
      * Used when displaying crypto prices by name.

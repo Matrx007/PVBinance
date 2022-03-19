@@ -1,5 +1,6 @@
 package com.ttg.pvbinance.gui;
 
+import com.binance.api.client.domain.general.SymbolInfo;
 import com.ttg.pvbinance.BinanceAPI;
 
 import javax.swing.*;
@@ -11,18 +12,18 @@ import java.util.Date;
 public class CurrencyGUI {
     private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
 
-    private BinanceAPI.CryptoPriceInfo crypto;
+    private String crypto;
 
-    public CurrencyGUI(BinanceAPI.CryptoPriceInfo crypto) {
+    public CurrencyGUI(String crypto) {
         this.crypto = crypto;
 
-        JFrame frame = new JFrame(crypto.name);
+        JFrame frame = new JFrame(crypto);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         frame.getContentPane().add(createContent(), BorderLayout.CENTER);
 
         frame.pack();
-        frame.setSize(1280, 720);
+        frame.setSize(480, 600);
         frame.setVisible(true);
     }
 
@@ -30,19 +31,21 @@ public class CurrencyGUI {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
-        panel.add(new JLabel(crypto.name));
-        panel.add(new JLabel(Float.toString(crypto.price)));
+        panel.add(new JLabel(crypto));
+        panel.add(new JLabel(BinanceAPI.getInstance().getPrice(crypto)));
 
         JPanel actionsPanel = new JPanel();
         actionsPanel.setLayout(new BoxLayout(actionsPanel, BoxLayout.LINE_AXIS));
 
-        JButton buyButton = new JButton("Buy");
-        JButton sellButton = new JButton("Sell");
-        actionsPanel.add(buyButton);
-        actionsPanel.add(sellButton);
+        JButton tradeButton = new JButton("Trade");
+        tradeButton.addActionListener(e -> new TradeGUI(crypto));
+        actionsPanel.add(tradeButton);
         panel.add(actionsPanel);
 
-        panel.add(new JLabel("History"));
+        JLabel historyLabel = new JLabel("History");
+        historyLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        panel.add(historyLabel);
+
         JPanel historyContainer = new JPanel();
         historyContainer.setLayout(new BoxLayout(historyContainer, BoxLayout.PAGE_AXIS));
 
